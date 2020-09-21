@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import UserTable from './tables/UserTable'
 import AddUserForm from './forms/AddUserForm'
+import { getUsers } from './services/getUsers.services'
 
 const App = () => {
 
+const [users, setUsers] = useState([])
 
-const usersData = [
-    {id: 1, name: 'Manning', username: 'thegreatchocolateMANDRAKE'},
-    {id: 2, name: 'Laura', username: 'Lauralingerie'},
-    {id: 3, name: 'Cali', username: 'MadeInCALIfiornia'}
-]
+useEffect(() => {
+    getUsers().then(users => {
+        setUsers(users);
+        console.log(users)
+        }); 
+  }, []);
 
-const [users, setUsers] = useState(usersData)
+
+
 
 const addUser = (user) => {
     user.id = users.length + 1 
